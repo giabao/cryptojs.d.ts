@@ -397,6 +397,31 @@ declare module CryptoJS{
         interface NoPadding extends IPaddingImpl{}
     }
 
+    module x64{
+        interface X64Static{
+            Word: x64.Word
+            WordArray: x64.WordArray
+        }
+
+        interface Word extends lib.Base{
+            high: number
+            low: number
+
+            init(high: number, low: number): void
+            create(high: number, low: number): Word
+        }
+
+        interface WordArray extends lib.Base{
+            words: Word[]
+            sigBytes: number
+
+            init(words?: Word[], sigBytes?: number): void
+            create(words?: Word[], sigBytes?: number): WordArray
+            toX32(): lib.WordArray
+            clone(): WordArray
+        }
+    }
+
     interface CryptoJSStatic{
         lib: lib.LibStatic
         enc: enc.EncStatic
@@ -405,6 +430,7 @@ declare module CryptoJS{
         algo: algo.AlgoStatic
         mode: mode.ModeStatic
         pad: pad.PadStatic
+        x64: x64.X64Static
 
         AES: CryptoJS.lib.ICipherHelper<CryptoJS.lib.IBlockCipherCfg>
         DES: CryptoJS.lib.ICipherHelper<CryptoJS.lib.IBlockCipherCfg>
