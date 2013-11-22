@@ -16,7 +16,7 @@ YUI.add('lib-cipherparams-test', function (Y) {
             this.data.salt = C.enc.Hex.parse('0123456789abcdef');
             this.data.algorithm = C.algo.AES;
             this.data.mode = C.mode.CBC;
-            this.data.padding = C.pad.PKCS7;
+            this.data.padding = C.pad.Pkcs7;
             this.data.blockSize = this.data.algorithm.blockSize;
             this.data.formatter = C.format.OpenSSL;
 
