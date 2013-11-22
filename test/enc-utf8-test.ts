@@ -1,5 +1,5 @@
 /// <reference path="../../yui.d.ts/yui.d.ts" />
-/// <reference path="../crypto-js.d.ts" />
+/// <reference path="../cryptojs.d.ts" />
 
 YUI.add('enc-utf8-test', function (Y) {
 YUI.add('enc-utf8-test', function (Y) {
