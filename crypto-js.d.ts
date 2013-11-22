@@ -35,7 +35,7 @@ declare module CryptoJS{
             create(typedArray: ArrayBuffer): WordArray
             create(typedArray: Int8Array): WordArray
 
-            toString(encoder?: enc.IEncoder): String
+            toString(encoder?: enc.IEncoder): string
             concat(wordArray: WordArray): WordArray
             clamp(): void
             clone(): WordArray
@@ -56,8 +56,8 @@ declare module CryptoJS{
             update(messageUpdate: WordArray): Hasher
             update(messageUpdate: string): Hasher
 
-            finalize(messageUpdate: WordArray): WordArray
-            finalize(messageUpdate: string): WordArray
+            finalize(messageUpdate?: WordArray): WordArray
+            finalize(messageUpdate?: string): WordArray
 
             blockSize: number
 
@@ -199,10 +199,10 @@ declare module CryptoJS{
 
     module enc{
         interface IEncoder{
-            stringify(wordArray: lib.WordArray): String
+            stringify(wordArray: lib.WordArray): string
         }
         interface IDecoder{
-            parse(s: String): lib.WordArray
+            parse(s: string): lib.WordArray
         }
         interface ICoder extends IEncoder, IDecoder {}
 
