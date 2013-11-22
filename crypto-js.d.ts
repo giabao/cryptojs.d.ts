@@ -294,8 +294,8 @@ declare module CryptoJS{
             update(messageUpdate: lib.WordArray): HMAC
             update(messageUpdate: string): HMAC
 
-            finalize(messageUpdate: lib.WordArray): lib.WordArray
-            finalize(messageUpdate: string): lib.WordArray
+            finalize(messageUpdate?: lib.WordArray): lib.WordArray
+            finalize(messageUpdate?: string): lib.WordArray
         }
 
         interface EvpKDF extends lib.Base{
