@@ -126,10 +126,10 @@ declare module CryptoJS{
             formatter?: format.IFormatter
         }
 
-        interface CipherParams extends Base{
+        interface CipherParams extends Base, CipherParamsData{
             init(cipherParams: CipherParamsData): void
             create(cipherParams: CipherParamsData): CipherParams
-            toString(formatter: format.IFormatter): string
+            toString(formatter?: format.IFormatter): string
         }
 
         //tparam C - Configuration type
@@ -138,7 +138,7 @@ declare module CryptoJS{
             encrypt(cipher: Cipher, message: WordArray, key: WordArray, cfg?: C): CipherParams
             encrypt(cipher: Cipher, message: string,    key: WordArray, cfg?: C): CipherParams
 
-            decrypt(cipher: Cipher, ciphertext: CipherParams, key: WordArray, cfg?: C): WordArray
+            decrypt(cipher: Cipher, ciphertext: CipherParamsData, key: WordArray, cfg?: C): WordArray
             decrypt(cipher: Cipher, ciphertext: string,       key: WordArray, cfg?: C): WordArray
         }
 
@@ -152,7 +152,7 @@ declare module CryptoJS{
             encrypt(cipher: Cipher, message: WordArray, password: string, cfg?: C): CipherParams
             encrypt(cipher: Cipher, message: string,    password: string, cfg?: C): CipherParams
 
-            decrypt(cipher: Cipher, ciphertext: CipherParams, password: string, cfg?: C): WordArray
+            decrypt(cipher: Cipher, ciphertext: CipherParamsData, password: string, cfg?: C): WordArray
             decrypt(cipher: Cipher, ciphertext: string,       password: string, cfg?: C): WordArray
         }
 
@@ -168,15 +168,18 @@ declare module CryptoJS{
             encrypt(message: WordArray, password: string, cfg?: C): CipherParams
             encrypt(message: string,    password: string, cfg?: C): CipherParams
 
-            decrypt(ciphertext: CipherParams, key: WordArray, cfg?: C): WordArray
+            decrypt(ciphertext: CipherParamsData, key: WordArray, cfg?: C): WordArray
             decrypt(ciphertext: string,       key: WordArray, cfg?: C): WordArray
-            decrypt(ciphertext: CipherParams, password: string, cfg?: C): WordArray
+            decrypt(ciphertext: CipherParamsData, password: string, cfg?: C): WordArray
             decrypt(ciphertext: string,       password: string, cfg?: C): WordArray
         }
 
         interface CipherHelper extends ICipherHelper<Object>{}
         interface LibStatic{
             WordArray: lib.WordArray
+            CipherParams: lib.CipherParams
+            SerializableCipher: lib.SerializableCipher
+            PasswordBasedCipher: lib.PasswordBasedCipher
         }
     }
 
@@ -225,30 +228,30 @@ declare module CryptoJS{
 
     module algo{
         interface AlgoStatic{
-            AES: AES
-            DES: DES
-            TripleDES: TripleDES
+            AES: algo.AES
+            DES: algo.DES
+            TripleDES: algo.TripleDES
 
-            RabbitLegacy: RabbitLegacy
-            Rabbit: Rabbit
-            RC4: RC4
+            RabbitLegacy: algo.RabbitLegacy
+            Rabbit: algo.Rabbit
+            RC4: algo.RC4
 
-            MD5: MD5
-            RIPEMD160: RIPEMD160
-            SHA1: SHA1
-            SHA256: SHA256
-            SHA224: SHA224
-            SHA384: SHA384
-            SHA512: SHA512
+            MD5: algo.MD5
+            RIPEMD160: algo.RIPEMD160
+            SHA1: algo.SHA1
+            SHA256: algo.SHA256
+            SHA224: algo.SHA224
+            SHA384: algo.SHA384
+            SHA512: algo.SHA512
 
-            SHA3: SHA3
+            SHA3: algo.SHA3
 
-            HMAC: HMAC
+            HMAC: algo.HMAC
 
-            EvpKDF: EvpKDF
-            PBKDF2: PBKDF2
+            EvpKDF: algo.EvpKDF
+            PBKDF2: algo.PBKDF2
 
-            RC4Drop: RC4Drop
+            RC4Drop: algo.RC4Drop
         }
 
         interface IBlockCipherImpl extends lib.BlockCipher{
@@ -326,12 +329,12 @@ declare module CryptoJS{
 
     module mode{
         interface ModeStatic{
-            CBC: CBC
-            CFB: CFB
-            CTR: CTR
-            CTRGladman: CTRGladman
-            ECB: ECB
-            OFB: OFB
+            CBC: mode.CBC
+            CFB: mode.CFB
+            CTR: mode.CTR
+            CTRGladman: mode.CTRGladman
+            ECB: mode.ECB
+            OFB: mode.OFB
         }
 
         interface IBlockCipherEncryptor extends lib.BlockCipherMode{
@@ -355,12 +358,12 @@ declare module CryptoJS{
 
     module pad{
         interface PadStatic{
-            Pkcs7: Pkcs7
-            AnsiX923: AnsiX923
-            Iso10126: Iso10126
-            Iso97971: Iso97971
-            ZeroPadding: ZeroPadding
-            NoPadding: NoPadding
+            Pkcs7: pad.Pkcs7
+            AnsiX923: pad.AnsiX923
+            Iso10126: pad.Iso10126
+            Iso97971: pad.Iso97971
+            ZeroPadding: pad.ZeroPadding
+            NoPadding: pad.NoPadding
         }
 
         interface IPaddingImpl{
@@ -384,5 +387,35 @@ declare module CryptoJS{
         algo: algo.AlgoStatic
         mode: mode.ModeStatic
         pad: pad.PadStatic
+
+        AES: CryptoJS.lib.ICipherHelper<CryptoJS.lib.IBlockCipherCfg>
+        DES: CryptoJS.lib.ICipherHelper<CryptoJS.lib.IBlockCipherCfg>
+        TripleDES: CryptoJS.lib.ICipherHelper<CryptoJS.lib.IBlockCipherCfg>
+
+        RabbitLegacy: CryptoJS.lib.CipherHelper
+        Rabbit: CryptoJS.lib.CipherHelper
+        RC4: CryptoJS.lib.CipherHelper
+        RC4Drop: CryptoJS.lib.ICipherHelper<CryptoJS.algo.IRC4DropCfg>
+
+        MD5: CryptoJS.lib.HasherHelper
+        HmacMD5: CryptoJS.lib.IHasherHmacHelper
+        RIPEMD160: CryptoJS.lib.HasherHelper
+        HmacRIPEMD160: CryptoJS.lib.IHasherHmacHelper
+        SHA1: CryptoJS.lib.HasherHelper
+        HmacSHA1: CryptoJS.lib.IHasherHmacHelper
+        SHA256: CryptoJS.lib.HasherHelper
+        HmacSHA256: CryptoJS.lib.IHasherHmacHelper
+        SHA224: CryptoJS.lib.HasherHelper
+        HmacSHA224: CryptoJS.lib.IHasherHmacHelper
+        SHA512: CryptoJS.lib.HasherHelper
+        HmacSHA512: CryptoJS.lib.IHasherHmacHelper
+        SHA384: CryptoJS.lib.HasherHelper
+        HmacSHA384: CryptoJS.lib.IHasherHmacHelper
+
+        SHA3: CryptoJS.lib.IHasherHelper<CryptoJS.algo.ISHA3Cfg>
+        HmacSHA3: CryptoJS.lib.IHasherHmacHelper
+
+        EvpKDF: CryptoJS.algo.IEvpKDFHelper
+        PBKDF2: CryptoJS.algo.IEvpKDFHelper //PBKDF2 is same as EvpKDF
     }
 }
