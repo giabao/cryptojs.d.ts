@@ -63,6 +63,8 @@ declare module CryptoJS{
 
             _createHelper(hasher: Hasher): IHasherHelper<C>
             _createHmacHelper(hasher: Hasher): IHasherHmacHelper
+
+            clone(): IHasher<C>
         }
         interface Hasher extends IHasher<Object>{}
 
@@ -99,6 +101,8 @@ declare module CryptoJS{
             ivSize: number
 
             _createHelper(cipher: Cipher): ICipherHelper<C>
+
+            clone(): ICipher<C>
         }
         interface Cipher extends ICipher<Object>{}
 
