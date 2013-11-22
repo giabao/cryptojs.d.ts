@@ -176,6 +176,7 @@ declare module CryptoJS{
 
         interface CipherHelper extends ICipherHelper<Object>{}
         interface LibStatic{
+            Base: lib.Base
             WordArray: lib.WordArray
             CipherParams: lib.CipherParams
             SerializableCipher: lib.SerializableCipher
