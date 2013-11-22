@@ -4,7 +4,10 @@
 YUI.add('algo-aes-profile', function (Y) {
     var C = CryptoJS;
 
-    Y.Profiler.add({
+    //Profiler is removed in YUI 3.10.2
+    //@see http://www.yuiblog.com/blog/2013/06/04/yui-3-10-2-released/
+    //Y.Profiler.add({
+    var obj = {
         name: 'AES',
 
         setUp: function () {
@@ -30,5 +33,5 @@ YUI.add('algo-aes-profile', function (Y) {
             }
             aes.finalize() + '';
         }
-    });
+    };
 }, '$Rev$');
