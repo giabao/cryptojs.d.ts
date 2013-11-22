@@ -313,10 +313,10 @@ declare module CryptoJS{
             iterations?: number //default 1
         }
         interface IEvpKDFHelper{
-            (password: lib.WordArray,  salt: lib.WordArray, cfg: IEvpKDFCfg): lib.WordArray
-            (password: string,         salt: lib.WordArray, cfg: IEvpKDFCfg): lib.WordArray
-            (password: lib.WordArray,  salt: string,        cfg: IEvpKDFCfg): lib.WordArray
-            (password: string,         salt: string,        cfg: IEvpKDFCfg): lib.WordArray
+            (password: lib.WordArray,  salt: lib.WordArray, cfg?: IEvpKDFCfg): lib.WordArray
+            (password: string,         salt: lib.WordArray, cfg?: IEvpKDFCfg): lib.WordArray
+            (password: lib.WordArray,  salt: string,        cfg?: IEvpKDFCfg): lib.WordArray
+            (password: string,         salt: string,        cfg?: IEvpKDFCfg): lib.WordArray
         }
 
         interface PBKDF2 extends EvpKDF{} //PBKDF2 is same as EvpKDF
